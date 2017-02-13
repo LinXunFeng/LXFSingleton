@@ -39,6 +39,14 @@ static id _instance = nil; \
 \
 + (instancetype)shared##methodName { \
     return [[self alloc] init]; \
+} \
+\
++ (id)copyWithZone:(struct _NSZone *)zone { \
+return _instance; \
+} \
+\
++ (id)mutableCopyWithZone:(struct _NSZone *)zone { \
+return _instance; \
 }
 #else   // 非ARC
 #define SingletonM(methodName) \
@@ -74,5 +82,14 @@ return self; \
 \
 - (NSUInteger)retainCount { \
 return 1; \
+} \
+ \
++ (id)copyWithZone:(struct _NSZone *)zone { \
+    return _instance; \
+} \
+ \
++ (id)mutableCopyWithZone:(struct _NSZone *)zone { \
+    return _instance; \
 }
+
 #endif
